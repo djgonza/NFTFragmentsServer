@@ -1,0 +1,12 @@
+# import MasterResource from '../resource/type.graphql'
+
+type MasterResourcesAmountMinMax {
+  resource: ID!
+  masterResource: MasterResource!
+  min: Int!
+  max: Int!
+}
+
+type Query {
+  masterResourcesMinMax: [MasterResourcesAmountMinMax]!
+}

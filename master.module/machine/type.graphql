@@ -1,0 +1,12 @@
+# import MasterRecipe from '../recipe/type.graphql'
+
+type MasterMachine {
+  key: ID!
+  name: String!
+  tier: Int!
+  recipes: [MasterRecipe]!
+}
+
+type Query {
+  masterMachines: [MasterMachine]!
+}

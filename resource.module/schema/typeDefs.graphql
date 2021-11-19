@@ -1,0 +1,9 @@
+# import MasterResource from '../../master.module/resource/type.graphql'
+
+type Resource {
+    _id: ID!
+    master: ID!
+    masterData: MasterResource!
+    amount: Int!
+}
+

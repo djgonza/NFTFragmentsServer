@@ -1,0 +1,13 @@
+# import MasterResource from '../resource/type.graphql'
+
+type MasterResourceAmount {
+  key: ID!
+  master: ID!
+  masterResource: ID!
+  masterResourceData: MasterResource!
+  amount: Int!
+}
+
+type Query {
+    masterResourcesAmount: [MasterResourceAmount]!
+}

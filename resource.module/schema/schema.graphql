@@ -1,0 +1,15 @@
+# import Resource from 'typeDefs.graphql'
+
+type Query {
+  resources: [Resource]!
+}
+
+input ResourceInput {
+  master: ID!
+  amount: Int!
+}
+
+type Mutation {
+  depositResource(masterResource: ID!, amount: Int!): Resource!
+  withdrawResource(masterResource: ID!, amount: Int!): Resource!
+}

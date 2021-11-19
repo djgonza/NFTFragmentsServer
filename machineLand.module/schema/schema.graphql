@@ -1,0 +1,10 @@
+# import MachineLand from 'typeDefs.graphql'
+
+type Query {
+  machinesLand: [MachineLand]!
+}
+
+# type Mutation {
+#   createMachineLand(machine: ID!, land: ID!): MachineLand!
+#   removeMachineLand(_id: ID!): MachineLand!
+# }

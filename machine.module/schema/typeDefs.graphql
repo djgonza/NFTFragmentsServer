@@ -1,0 +1,13 @@
+# import MasterMachine from '../../master.module/machine/type.graphql'
+# import MasterRecipe from '../../master.module/recipe/type.graphql'
+
+type Machine {
+  _id: ID!
+  master: ID!
+  masterData: MasterMachine!
+  recipe: ID
+  recipeData: MasterRecipe
+  land: ID
+  running: Boolean!
+  endDate: Float!
+}

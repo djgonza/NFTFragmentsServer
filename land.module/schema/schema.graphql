@@ -1,0 +1,12 @@
+# import Land from 'typeDefs.graphql'
+# import Machine from '../../machine.module/schema/typeDefs.graphql'
+
+type Query {
+  lands: [Land]!
+}
+
+type Mutation {
+  createLand(master: ID!): Land!
+  placeMachineInLand(_id: ID!, machine: ID!): Machine!
+  removeMachineFromLand(_id: ID!, machine: ID!): Land!
+}

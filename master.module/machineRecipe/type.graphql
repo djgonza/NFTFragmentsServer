@@ -1,0 +1,12 @@
+# import MasterMachine from '../machine/type.graphql'
+# import MasterRecipe from '../recipe/type.graphql'
+
+type MasterMachineRecipe {
+    key: ID!
+    machine: MasterMachine!
+    recipe: MasterRecipe!
+}
+
+type Query {
+    masterMachinesRecipes: [MasterMachineRecipe]!
+}

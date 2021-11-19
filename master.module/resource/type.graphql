@@ -1,0 +1,10 @@
+type MasterResource {
+  key: ID!
+  name: String!
+  symbol: String
+  color: String
+}
+
+type Query {
+  masterResources: [MasterResource]!
+}

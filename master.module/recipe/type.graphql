@@ -1,0 +1,16 @@
+# import MasterResourceAmount from '../resourceAmount/type.graphql'
+
+type MasterRecipe {
+  key: ID!
+  name: String!
+  time: Int!
+  machine: ID!
+  masterInput: ID
+  masterOutput: ID!
+  input: [MasterResourceAmount]
+  output: [MasterResourceAmount]!
+}
+
+type Query {
+  masterRecipes: [MasterRecipe]!
+}
