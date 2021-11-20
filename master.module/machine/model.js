@@ -5,16 +5,22 @@ const schema = mongoose.Schema;
 const MasterMachineSchema = new schema({
   key: {
     type: schema.Types.Number,
-    require: true
+    require: true,
   },
   name: {
     type: schema.Types.String,
-    require: true
+    require: true,
   },
   tier: {
     type: schema.Types.Number,
-    require: true
-  }
+    require: true,
+  },
+  masterMachineRecipes: [
+    {
+      type: schema.Types.Number,
+      require: true,
+    },
+  ],
 });
 
 const MasterMachineModel = mongoose.model(

@@ -1,43 +1,45 @@
 import { asyncWrapper } from "../../utils/asyncWrapper";
-import { MachineModel } from "../models";
 
-import { withdraw as WithdrawResourceAmount } from "../../resourceAmount.module/actions";
-import { findLandByMachine } from "../../machineLand.module/actions";
-import { find as FindResourceAmount } from "../../master.module/resourceAmount/actions";
-import { findByKey as FindRecipeByKey } from "../../master.module/recipe/actions";
+import { findById as FindMachineById } from "../actions";
+import { findOne as FindOneLand } from "../../land.module/actions";
+import { findByKey as FindMasterMachineRecipeByKey } from "../../master.module/machineRecipe/actions";
 import { deposit as DepositResource } from "../../resource.module/actions";
 
 const Harvest = async (obj, args, context, info) => {
   const { user } = context;
   const { _id } = args;
-
-  const machine = await MachineModel.findOne({ user: user.id, _id });
+  
+  const machine = await FindMachineById(_id);
   if (!machine) throw new Error("Not machine found");
-  if (machine.recipe === null) throw new Error("Not recipe set");
+  if (machine.masterRecipe === null) throw new Error("Not recipe set");
 
-  const recipe = await FindRecipeByKey(machine.recipe);
-  if (!recipe) throw new Error("Recipe not found");
+  const masterMachineRecipe = await FindMasterMachineRecipeByKey(machine.masterRecipe);
+  if (!masterMachineRecipe) throw new Error("Recipe not found");
+
+  const land = await FindOneLand({ currentMachine: machine._id });
+  if(!land) throw new Error("No land set");
 
   machine.running = false;
   machine.endDate = 0;
 
   await machine.save();
 
-  const resourcesAmount = await FindResourceAmount({ master: recipe.key });
-  for (let i = 0; i < resourcesAmount.length; i++) {
-    if (recipe.withdrawResourcesOfLand) {
-      const land = await findLandByMachine(machine._id);
-      await WithdrawResourceAmount(
-        land._id,
-        resourcesAmount[i].masterResource,
-        resourcesAmount[i].amount
-      );
+  for (let i = 0; i < masterMachineRecipe.masterResourcesOutput.length; i++) {
+    const masterMachinerecipeResourceOutput = masterMachineRecipe.masterResourcesOutput[i];
+    
+    if (masterMachineRecipe.withdrawResourcesOfLand) {
+      land.resources = land.resources.map(landResource => {
+        if(landResource.masterResource !== masterMachinerecipeResourceOutput.masterResource) return landResource;
+        landResource.amount -= masterMachinerecipeResourceOutput.amount;
+        if(landResource.amount < 0) landResource.amount = 0;
+        return landResource;
+      })
     }
 
     await DepositResource(
       user.id,
-      resourcesAmount[i].masterResource,
-      resourcesAmount[i].amount
+      masterMachinerecipeResourceOutput.masterResource,
+      masterMachinerecipeResourceOutput.amount
     );
   }
 

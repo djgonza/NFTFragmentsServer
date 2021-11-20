@@ -1,11 +1,17 @@
 # import MasterLand from '../../master.module/land/type.graphql'
+# import MasterResource from '../../master.module/resource/type.graphql'
 # import Machine from '../../machine.module/schema/typeDefs.graphql'
-# import ResourceAmount from '../../resourceAmount.module/schema/typeDefs.graphql'
+
+type LandResourceAmount {
+  masterResource: ID!
+  masterResourceData: MasterResource!
+  amount: Int!
+}
 
 type Land {
   _id: ID!
-  master: ID!
-  masterData: MasterLand!
-  resources: [ResourceAmount]!
+  masterLand: ID!
+  masterLandData: MasterLand!
+  landResources: [LandResourceAmount]!
   currentMachine: Machine
 }

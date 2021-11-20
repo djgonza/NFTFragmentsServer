@@ -1,16 +1,16 @@
-import { MachineModel } from "../models";
+import { create } from "../actions";
 import { asyncWrapper } from "../../utils/asyncWrapper";
+import { findByKey as FindMasterMachineByKey } from "../../master.module/machine/actions";
 
 const Create = async (obj, args, context, info) => {
   const { user } = context;
-  const newMachineModel = new MachineModel({
-    ...args,
-    user: user.id
-  });
+  const { masterMachineKey } = args;
 
-  await newMachineModel.save();
+  const masterMachine = await FindMasterMachineByKey(masterMachineKey);
+  if(!masterMachine) throw new Error("Not machinemaster found")
 
-  return newMachineModel;
+  const newMachine = await create(user.id, masterMachine.key);
+  return newMachine;
 };
 
 export default asyncWrapper(Create);

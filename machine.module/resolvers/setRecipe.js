@@ -1,18 +1,18 @@
-import { MachineModel } from "../models";
-import { findByKey as FindRecipeByKey } from "../../master.module/recipe/actions";
+import { findById } from "../actions";
+import { findByKey as FindMasterMachineRecipeByKey } from "../../master.module/machineRecipe/actions";
 import { asyncWrapper } from "../../utils/asyncWrapper";
 
 const SetRecipe = async (obj, args, context, info) => {
   const { user } = context;
   const { _id, masterRecipeKey } = args;
 
-  const machine = await MachineModel.findOne({ user: user.id, _id });
+  const machine = await findById(_id);
   if (!machine) throw new Error("Not machine found");
 
-  const recipe = await FindRecipeByKey(masterRecipeKey);
+  const masterMachineRecipe = await FindMasterMachineRecipeByKey(masterRecipeKey);
   if (!recipe) throw new Error("Not recipe found");
 
-  machine.recipe = recipe.key;
+  machine.masterRecipe = recipe.key;
   machine.running = false;
   machine.startDate = 0;
 

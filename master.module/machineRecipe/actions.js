@@ -4,12 +4,8 @@ const find = async (params) => {
   return await MasterMachineRecipeModel.find(params);
 };
 
-const findMachineByRecipe = async (masterRecipeKey) => {
+const findByKey = async key => {
+  return await MasterMachineRecipeModel.findOne({ key });
+};
 
-  const masterMachineRecipe = await MasterMachineRecipeModel.findOne({recipe: masterRecipeKey})
-
-  return masterMachineRecipe && masterMachineRecipe.machine;
-
-}
-
-export { find, findMachineByRecipe };
+export { find, findByKey };

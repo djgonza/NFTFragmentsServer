@@ -1,9 +1,16 @@
-# import MasterResourcesAmountMinMax from '../resourcesMinMax/type.graphql'
+#import MasterResource from '../resource/type.graphql'
+
+type MasterLandResourceMinMax {
+  masterResource: ID!
+  masterResourceData: MasterResource!
+  min: Int!
+  max: Int!
+}
 
 type MasterLand {
   key: ID!
   name: String!
-  resources: [MasterResourcesAmountMinMax]!
+  masterLandResources: [MasterLandResourceMinMax]!
 }
 
 type Query {

@@ -5,12 +5,44 @@ const lands = [
   {
     key: 0,
     name: "Land 1",
-    masterResources: 0,
+    masterLandResources: [
+      {
+        masterResource: 1,
+        min: 1000,
+        max: 2000,
+      },
+      {
+        masterResource: 2,
+        min: 1000,
+        max: 2000,
+      },
+      {
+        masterResource: 3,
+        min: 1000,
+        max: 2000,
+      },
+    ],
   },
   {
     key: 1,
     name: "Land V2",
-    masterResources: 1,
+    masterLandResources: [
+      {
+        masterResource: 4,
+        min: 1000,
+        max: 2000,
+      },
+      {
+        masterResource: 5,
+        min: 1000,
+        max: 2000,
+      },
+      {
+        masterResource: 6,
+        min: 1000,
+        max: 2000,
+      },
+    ],
   },
 ];
 

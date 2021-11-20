@@ -5,26 +5,26 @@ const schema = mongoose.Schema;
 const machineSchema = new schema({
   user: {
     type: schema.Types.ObjectId,
-    require: true
+    require: true,
   },
-  master: {
+  masterMachine: {
     type: schema.Types.Number,
-    require: true
+    require: true,
   },
-  recipe: {
+  masterRecipe: {
     type: schema.Types.Number,
-    default: null
+    default: null,
   },
   running: {
     type: schema.Types.Boolean,
     required: true,
-    default: false
+    default: false,
   },
   endDate: {
     type: schema.Types.Number,
     required: true,
-    default: 0
-  }
+    default: 0,
+  },
 });
 
 const MachineModel = mongoose.model("machine", machineSchema);

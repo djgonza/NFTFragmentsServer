@@ -1,12 +1,19 @@
-# import MasterMachine from '../machine/type.graphql'
-# import MasterRecipe from '../recipe/type.graphql'
+# import MasterResource from '../resource/type.graphql'
+
+type MasterRecipeResourceAmount {
+  masterResource: ID!
+  masterResourceData: MasterResource!
+  amount: Int!
+}
 
 type MasterMachineRecipe {
-    key: ID!
-    machine: MasterMachine!
-    recipe: MasterRecipe!
+  key: ID!
+  name: String!
+  time: Int!
+  masterResourcesInput: [MasterRecipeResourceAmount]
+  masterResourcesOutput: [MasterRecipeResourceAmount]!
 }
 
 type Query {
-    masterMachinesRecipes: [MasterMachineRecipe]!
+  masterMachineRecipes: [MasterMachineRecipe]!
 }

@@ -1,8 +1,8 @@
 import { MachineModel } from "../models";
 
-import { findLandByMachine } from "../../machineLand.module/actions";
+import { findOne as FindOneLand } from "../../land.module/actions";
 import { findByKey as FindMasterMachineByKey } from "../../master.module/machine/actions";
-import { findByKey as FindMasterRecipeByKey } from "../../master.module/recipe/actions";
+import { findByKey as FindMasterMachineRecipeByKey } from "../../master.module/machineRecipe/actions";
 
 import create from "./create";
 import setRecipe from "./setRecipe";
@@ -19,16 +19,16 @@ const resolvers = {
     },
   },
   Machine: {
-    masterData: async (machine) => {
-      return await FindMasterMachineByKey(machine.master);
+    masterMachineData: async (machine) => {
+      console.log(machine);
+      return await FindMasterMachineByKey(machine.masterMachine);
     },
-    land: async (machine) => {
-      const land = await findLandByMachine(machine._id);
-      return land && land._id;
+    landData: async (machine) => {
+      return await FindOneLand({ currentMachine: machine._id });
     },
-    recipeData: async (machine) => {
-      return await FindMasterRecipeByKey(machine.recipe);
-    }
+    masterRecipeData: async (machine) => {
+      return await FindMasterMachineRecipeByKey(machine.masterRecipe);
+    },
   },
   Mutation: {
     createMachine: create,

@@ -1,8 +1,8 @@
 import { LandModel } from "../models";
 import { findByKey as FindMasterLandByKey } from "../../master.module/land/actions";
 import { findByKey as FindMasterMachineByKey } from "../../master.module/machine/actions";
-import { find as FindResourceAmount } from "../../resourceAmount.module/actions";
-import { findMachineByLand } from "../../machineLand.module/actions";
+import { find as FindMasterResource } from "../../master.module/resource/actions";
+import { findById as FindMachineById } from "../../machine.module/actions";
 
 import create from "./create";
 import placeMachine from "./placeMachine";
@@ -16,19 +16,20 @@ const resolvers = {
     },
   },
   Land: {
-    masterData: async (land) => {
-      const masterLandData = await FindMasterLandByKey(land.master);
-      return masterLandData;
+    masterLandData: async (land) => {
+      return await FindMasterLandByKey(land.masterLand);
     },
     currentMachine: async (land) => {
-      return await findMachineByLand(land._id);
-    },
-    resources: async (land) => {
-      const resourcesAmount = await FindResourceAmount({ element: land._id });
-      return resourcesAmount;
+      if (!land.currentMachine) return;
+        return await FindMachineById(land.currentMachine);
     },
   },
-
+  LandResourceAmount: {
+    masterResourceData: async (landResourceAmount) => {
+      console.log("landResourceAmount", landResourceAmount);
+      return await FindMasterResource(landResourceAmount.masterResource);
+    },
+  },
   Mutation: {
     createLand: create,
     placeMachineInLand: placeMachine,

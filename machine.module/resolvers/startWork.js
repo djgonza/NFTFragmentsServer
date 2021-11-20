@@ -1,38 +1,34 @@
 import { asyncWrapper } from "../../utils/asyncWrapper";
-import { MachineModel } from "../models";
+import { findById } from "../actions";
 import { withdraw as WithdrawResource } from "../../resource.module/actions";
-import { findByKey as FindRecipeByKey } from "../../master.module/recipe/actions";
-import { find as FindMasterResourceAmount } from "../../master.module/resourceAmount/actions";
+import { findByKey as FindMasterMachineRecipeByKey } from "../../master.module/machineRecipe/actions";
 
 const StartWork = async (obj, args, context, info) => {
   const { user } = context;
   const { _id } = args;
 
-  const machine = await MachineModel.findOne({ user: user.id, _id });
-
+  const machine = await findById(_id);
   if (!machine) throw new Error("Not machine found");
-  if (machine.recipe === null) throw new Error("Not recipe set");
+  if (machine.masterRecipe === null) throw new Error("Not recipe set");
 
-  const recipe = await FindRecipeByKey(machine.recipe);
-  if (!recipe) throw new Error("Recipe not found");
+  const masterMachineRecipe = await FindMasterMachineRecipeByKey(
+    machine.masterRecipe
+  );
+  if (!masterMachineRecipe) throw new Error("Recipe not found");
 
   machine.running = true;
-  machine.endDate = Date.now() + recipe.time;
+  machine.endDate = Date.now() + masterMachineRecipe.time;
 
   await machine.save();
 
-  if (recipe.masterInput !== null) {
-    const masterResourcesAmount = await FindMasterResourceAmount({
-      master: recipe.masterInput,
-    });
-
-    for (let i = 0; i < masterResourcesAmount.length; i++) {
+  for (let i = 0; i < masterMachineRecipe.masterResourcesInput.length; i++) {
+    const masterMachineRecipeMasterResouceInput =
+      masterMachineRecipe.masterResourcesInput[i];
       await WithdrawResource(
         user.id,
-        masterResourcesAmount[i].masterResource,
-        masterResourcesAmount[i].amount
+        masterMachineRecipeMasterResouceInput.masterResource,
+        masterMachineRecipeMasterResouceInput.amount
       );
-    }
   }
 
   return machine;

@@ -1,0 +1,13 @@
+
+type MasterTechnologyNode {
+  key: ID!
+  name: String!
+  parent: ID
+}
+
+#TODO: en cada elemento (recipe, machine, part...) meter el elemento MasterTechnology
+#para indicar que se desbloquea con esa tecnologia
+
+type Query {
+  masterTechnologyNodes: [MasterTechnologyNode]!
+}

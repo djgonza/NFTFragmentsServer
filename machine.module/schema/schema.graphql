@@ -1,13 +1,13 @@
 # import Machine from 'typeDefs.graphql'
-# import MasterRecipe from '../../master.module/recipe/type.graphql'
+# import MasterMachineRecipe from '../../master.module/machineRecipe/type.graphql'
 
 type Query {
   machines: [Machine]!
 }
 
 type Mutation {
-  createMachine(master: ID!): Machine!
-  setRecipeMachine(_id: ID!, masterRecipeKey: ID!): MasterRecipe!
+  createMachine(masterMachineKey: ID!): Machine!
+  setRecipeMachine(_id: ID!, masterRecipeKey: ID!): MasterMachineRecipe!
   clearRecipeMachine(_id: ID!): Machine!
   startWorkMachine(_id: ID!): Machine!
   harvestMachine(_id: ID!): Machine!

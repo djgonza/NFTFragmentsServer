@@ -6,7 +6,7 @@ type Query {
 }
 
 type Mutation {
-  createLand(master: ID!): Land!
-  placeMachineInLand(_id: ID!, machine: ID!): Machine!
-  removeMachineFromLand(_id: ID!, machine: ID!): Land!
+  createLand(masterLandKey: ID!): Land!
+  placeMachineInLand(_id: ID!, machineID: ID!): Machine!
+  removeMachineFromLand(_id: ID!, machineID: ID!): Land!
 }

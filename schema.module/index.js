@@ -27,14 +27,6 @@ import {
   resolvers as MasterResourceResolver,
 } from "../master.module/resource";
 import {
-  typeDefs as MasterResourceAmountType,
-  resolvers as MasterResourceAmountResolver,
-} from "../master.module/resourceAmount";
-import {
-  typeDefs as MasterResourceMinMaxType,
-  resolvers as MasterResourceMinMaxResolver,
-} from "../master.module/resourcesMinMax";
-import {
   typeDefs as MasterLandType,
   resolvers as MasterLandResolver,
 } from "../master.module/land";
@@ -43,13 +35,28 @@ import {
   resolvers as MasterMachineResolver,
 } from "../master.module/machine";
 import {
-  typeDefs as MasterRecipeType,
-  resolvers as MasterRecipeResolver,
-} from "../master.module/recipe";
-import {
   typeDefs as MasterMachineRecipeType,
   resolvers as MasterMachineRecipeResolver,
 } from "../master.module/machineRecipe";
+import {
+  typeDefs as MasterTechnologyNodeType,
+  resolvers as MasterTechnologyNodeResolver,
+} from "../master.module/technologyNode";
+
+import {
+  typeDefs as MasterPartType,
+  resolvers as MasterPartResolver,
+} from "../master.module/part";
+
+import {
+  typeDefs as MasterPartRecipeType,
+  resolvers as MasterPartRecipeResolver,
+} from "../master.module/partRecipe";
+
+import {
+  typeDefs as MasterBlueprintType,
+  resolvers as MasterBlueprintResolver,
+} from "../master.module/blueprint";
 
 /* End masters */
 
@@ -77,12 +84,13 @@ import {
 const schema = makeExecutableSchema({
   typeDefs: [
     MasterResourceType,
-    MasterResourceAmountType,
-    MasterResourceMinMaxType,
     MasterLandType,
     MasterMachineType,
-    MasterRecipeType,
     MasterMachineRecipeType,
+    MasterTechnologyNodeType,
+    MasterPartType,
+    MasterPartRecipeType,
+    MasterBlueprintType,
     ResourceType,
     ResourceAmountType,
     LandType,
@@ -91,12 +99,13 @@ const schema = makeExecutableSchema({
   ],
   resolvers: merge(
     MasterResourceResolver,
-    MasterResourceAmountResolver,
-    MasterResourceMinMaxResolver,
     MasterLandResolver,
     MasterMachineResolver,
-    MasterRecipeResolver,
     MasterMachineRecipeResolver,
+    MasterTechnologyNodeResolver,
+    MasterPartResolver,
+    MasterPartRecipeResolver,
+    MasterBlueprintResolver,
     ResourceResolver,
     ResourceAmountResolver,
     LandResolver,

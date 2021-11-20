@@ -1,51 +1,30 @@
-import { LandModel } from "../models";
-import { findByKey as FindMasterLandByKey } from "../../master.module/land/actions";
-import { find as FindMasterResourceMinMax } from "../../master.module/resourcesMinMax/actions";
-import { create as CreateResourceAmount } from "../../resourceAmount.module/actions";
 import { asyncWrapper } from "../../utils/asyncWrapper";
+
+import { findByKey as FindMasterLandByKey } from "../../master.module/land/actions";
+import { create as CreateLand } from "../actions";
 
 const Create = async (obj, args, context, info) => {
   const { user } = context;
-  const { master } = args;
+  const { masterLandKey } = args;
 
-  const masterLand = await FindMasterLandByKey(master);
+  const masterLand = await FindMasterLandByKey(masterLandKey);
   if (!masterLand) throw new Error("Not master land found");
 
-  const masterResourcesMinMax = await FindMasterResourceMinMax({
-    master: masterLand.key,
-  });
-  if (!masterResourcesMinMax)
-    throw new Error("Not master resources min max found");
+  const resources = [];
+  for (let i = 0; i < masterLand.masterLandResources.length; i++) {
+    const masterLandResource = masterLand.masterLandResources[i];
+    resources.push({
+      masterResource: masterLandResource.masterResource,
+      amount:
+        Math.floor(Math.random() * masterLandResource.max) +
+        masterLandResource.min,
+    });
+  }
 
-  const newLandModel = new LandModel({
-    user: user.id,
-    master,
-  });
+  const newLand = await CreateLand(user.id, masterLand.key, resources);
 
-  await newLandModel.save();
-  await generateRandomResources(
-    user.id,
-    newLandModel._id,
-    masterResourcesMinMax
-  );
+  return newLand;
 
-  return newLandModel;
 };
 
 export default asyncWrapper(Create);
-
-async function generateRandomResources(user, element, masterResourcesMinMax) {
-  for (let i = 0; i < masterResourcesMinMax.length; i++) {
-    const masterResourceMinMax = masterResourcesMinMax[i];
-    const amount =
-      Math.floor(Math.random() * masterResourceMinMax.max) +
-      masterResourceMinMax.min;
-
-    await CreateResourceAmount(
-      user,
-      element,
-      masterResourceMinMax.resource,
-      amount
-    );
-  }
-}

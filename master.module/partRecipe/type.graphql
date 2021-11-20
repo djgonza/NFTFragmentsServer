@@ -1,0 +1,26 @@
+# import MasterPart from '../part/type.graphql'
+# import MasterResource from '../resource/type.graphql'
+
+type MasterPartRecipePartAmount {
+  masterPart: ID!
+  masterPartData: MasterPart!
+  amount: Int!
+}
+
+type MasterPartRecipeResourceAmount {
+  masterResource: ID!
+  masterResourceData: MasterResource!
+  amount: Int!
+}
+
+type MasterPartRecipe {
+  key: ID!
+  name: String
+  masterPartsInput: [MasterPartRecipePartAmount]!
+  masterResourcesInput: [MasterPartRecipeResourceAmount]!
+  masterPartOutput: [MasterPartRecipePartAmount]!
+}
+
+type Query {
+  masterPartRecipes: [MasterPartRecipe]!
+}

@@ -1,0 +1,19 @@
+# import MasterMachine from '../machine/type.graphql'
+# import MasterPart from '../part/type.graphql'
+
+type MasterBlueprintPartsAmount {
+    masterPart: ID!
+    masterPartData: MasterPart!
+    amount: Int!
+}
+
+type MasterBlueprint {
+    key: ID!
+    name: String!
+    masterPartsInput: [MasterBlueprintPartsAmount]!
+    masterMachineOutput: MasterMachine!
+}
+
+type Query {
+    masterBlueprints: [MasterBlueprint]!
+}

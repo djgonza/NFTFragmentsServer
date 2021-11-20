@@ -1,17 +1,23 @@
-import { LandModel } from "../models";
 import { asyncWrapper } from "../../utils/asyncWrapper";
-import { createMachineLand } from "../../machineLand.module/actions";
 import { findById as FindMachineById } from "../../machine.module/actions";
+import { findById as FindLandById } from "../actions";
 
 const PlaceMachine = async (obj, args, context, info) => {
-  const { _id, machine } = args;
-  //const { user } = context;
+  const { _id, machineID } = args;
+  const { user } = context;
 
-  const newMachineLand = await createMachineLand(_id, machine);
+  const land = await FindLandById(_id);
+  if(!land) throw new Error("Land not found")
 
-  const machinePlaced = await FindMachineById(newMachineLand.machine);
+  const machine = await FindMachineById(machineID);
+  if (!machine) throw new Error("Machine not found");
 
-  return machinePlaced;
+  land.currentMachine = machine._id;
+
+  await land.save();
+
+  return land;
+
 };
 
 export default asyncWrapper(PlaceMachine);

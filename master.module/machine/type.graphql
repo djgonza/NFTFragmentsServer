@@ -1,10 +1,10 @@
-# import MasterRecipe from '../recipe/type.graphql'
+# import MasterMachineRecipe from '../machineRecipe/type.graphql'
 
 type MasterMachine {
   key: ID!
   name: String!
   tier: Int!
-  recipes: [MasterRecipe]!
+  masterMachineRecipes: [MasterMachineRecipe]!
 }
 
 type Query {

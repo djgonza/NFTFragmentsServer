@@ -1,0 +1,11 @@
+# import MasterPartRecipe from '../partRecipe/type.graphql'
+
+type MasterPart {
+  key: ID!
+  name: String!
+  masterPartRecipes: [MasterPartRecipe]!
+}
+
+type Query {
+  masterParts: [MasterPart]!
+}
