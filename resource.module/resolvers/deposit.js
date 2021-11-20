@@ -3,8 +3,8 @@ import { asyncWrapper } from "../../utils/asyncWrapper";
 
 const Deposit = async (obj, args, context, info) => {
   const { user } = context;
-  const { masterResource, amount } = args;
-  return await deposit(user.id, masterResource, amount);
+  const { masterResourceId, amount } = args;
+  return await deposit(user.id, masterResourceId, amount);
 };
 
 export default asyncWrapper(Deposit);

@@ -7,12 +7,12 @@ const find = async (params) => {
 const deposit = async (user, masterResource, amount) => {
   var resource = await ResourceModel.findOne({
     user,
-    master: masterResource,
+    masterResource,
   });
   if (!resource)
     resource = new ResourceModel({
       user,
-      master: masterResource,
+      masterResource,
       amount: 0,
     });
 
@@ -27,7 +27,7 @@ const deposit = async (user, masterResource, amount) => {
 const withdraw = async (user, masterResource, amount) => {
   const resource = await ResourceModel.findOne({
     user,
-    master: masterResource,
+    masterResource,
   });
   if (!resource) return;
 

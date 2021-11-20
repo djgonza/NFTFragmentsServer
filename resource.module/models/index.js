@@ -7,7 +7,7 @@ const resourceSchema = new schema({
     type: schema.Types.ObjectId,
     require: true
   },
-  master: {
+  masterResource: {
     type: schema.Types.Number,
     require: true
   },

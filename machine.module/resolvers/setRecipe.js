@@ -10,15 +10,15 @@ const SetRecipe = async (obj, args, context, info) => {
   if (!machine) throw new Error("Not machine found");
 
   const masterMachineRecipe = await FindMasterMachineRecipeByKey(masterRecipeKey);
-  if (!recipe) throw new Error("Not recipe found");
+  if (!masterMachineRecipe) throw new Error("Not recipe found");
 
-  machine.masterRecipe = recipe.key;
+  machine.masterRecipe = masterMachineRecipe.key;
   machine.running = false;
   machine.startDate = 0;
 
   await machine.save();
 
-  return recipe;
+  return masterMachineRecipe;
 };
 
 export default asyncWrapper(SetRecipe);

@@ -65,10 +65,6 @@ import {
   resolvers as ResourceResolver,
 } from "../resource.module";
 import {
-  typeDefs as ResourceAmountType,
-  resolvers as ResourceAmountResolver,
-} from "../resourceAmount.module";
-import {
   typeDefs as LandType,
   resolvers as LandResolver,
 } from "../land.module";
@@ -76,10 +72,6 @@ import {
   typeDefs as MachineType,
   resolvers as MachineResolver,
 } from "../machine.module";
-import {
-  typeDefs as MachineLandType,
-  resolvers as MachineLandResolver,
-} from "../machineLand.module";
 
 const schema = makeExecutableSchema({
   typeDefs: [
@@ -92,10 +84,8 @@ const schema = makeExecutableSchema({
     MasterPartRecipeType,
     MasterBlueprintType,
     ResourceType,
-    ResourceAmountType,
     LandType,
     MachineType,
-    MachineLandType,
   ],
   resolvers: merge(
     MasterResourceResolver,
@@ -107,10 +97,8 @@ const schema = makeExecutableSchema({
     MasterPartRecipeResolver,
     MasterBlueprintResolver,
     ResourceResolver,
-    ResourceAmountResolver,
     LandResolver,
     MachineResolver,
-    MachineLandResolver
   ),
 });
 

@@ -2,8 +2,8 @@
 
 type Resource {
     _id: ID!
-    master: ID!
-    masterData: MasterResource!
+    masterResource: ID!
+    masterResourceData: MasterResource!
     amount: Int!
 }
 
