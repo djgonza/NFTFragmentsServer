@@ -11,6 +11,7 @@ const RemoveMachine = async (obj, args, context, info) => {
 
   const machine = await FindMachineById(machineID);
   if (!machine) throw new Error("Machine not found");
+  if(machine.running) throw new Error("Machine is running")
 
   land.currentMachine = null;
 

@@ -5,6 +5,6 @@ type Query {
 }
 
 type Mutation {
-  depositResource(masterResourceId: ID!, amount: Int!): Resource!
-  withdrawResource(masterResourceId: ID!, amount: Int!): Resource!
+  depositResource(masterResourceKey: ID!, amount: Int!): Resource!
+  withdrawResource(masterResourceKey: ID!, amount: Int!): Resource!
 }

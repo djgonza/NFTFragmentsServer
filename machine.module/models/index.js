@@ -11,7 +11,7 @@ const machineSchema = new schema({
     type: schema.Types.Number,
     require: true,
   },
-  masterRecipe: {
+  masterMachineRecipe: {
     type: schema.Types.Number,
     default: null,
   },

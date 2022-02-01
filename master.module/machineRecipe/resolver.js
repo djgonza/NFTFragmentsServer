@@ -9,7 +9,6 @@ const resolver = {
     masterResourceData: async (masterRecipeResourceAmount) => {
       return await FindMasterResourceByKey(
         masterRecipeResourceAmount.masterResource
-        
       );
     },
   },

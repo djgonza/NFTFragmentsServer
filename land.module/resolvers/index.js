@@ -1,7 +1,6 @@
 import { LandModel } from "../models";
 import { findByKey as FindMasterLandByKey } from "../../master.module/land/actions";
-import { findByKey as FindMasterMachineByKey } from "../../master.module/machine/actions";
-import { find as FindMasterResource } from "../../master.module/resource/actions";
+import { findByKey as FindMasterResourceByKey } from "../../master.module/resource/actions";
 import { findById as FindMachineById } from "../../machine.module/actions";
 
 import create from "./create";
@@ -21,13 +20,13 @@ const resolvers = {
     },
     currentMachine: async (land) => {
       if (!land.currentMachine) return;
-        return await FindMachineById(land.currentMachine);
+      return await FindMachineById(land.currentMachine);
     },
   },
   LandResourceAmount: {
     masterResourceData: async (landResourceAmount) => {
       console.log("landResourceAmount", landResourceAmount);
-      return await FindMasterResource(landResourceAmount.masterResource);
+      return await FindMasterResourceByKey(landResourceAmount.masterResource);
     },
   },
   Mutation: {

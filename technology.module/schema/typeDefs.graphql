@@ -1,0 +1,7 @@
+# import MasterTechnology from '../../master.module/technology/type.graphql'
+
+type Technology {
+  _id: ID!
+  masterTechnology: ID!
+  masterTechnologyData: MasterTechnology!
+}

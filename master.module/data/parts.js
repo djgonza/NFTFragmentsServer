@@ -12,6 +12,11 @@ const parts = [
     name: "Iron ingot",
     masterPartRecipes: [1],
   },
+  {
+    key: 2,
+    name: "Copper ingot",
+    masterPartRecipes: [0],
+  },
 ];
 
 export default insert;

@@ -2,7 +2,7 @@ import { ResourceModel } from "../models";
 
 const find = async (params) => {
   return await ResourceModel.find(params);
-}
+};
 
 const deposit = async (user, masterResource, amount) => {
   var resource = await ResourceModel.findOne({
@@ -39,4 +39,9 @@ const withdraw = async (user, masterResource, amount) => {
   return resource;
 };
 
-export { find, deposit, withdraw };
+const hasResourceAmount = async (user, masterResource, amount) => {
+  const resource = await ResourceModel.findOne({ user, masterResource });
+  return amount <= resource.amount;
+};
+
+export { find, deposit, withdraw, hasResourceAmount };

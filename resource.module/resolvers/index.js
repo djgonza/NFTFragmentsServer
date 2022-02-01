@@ -1,7 +1,7 @@
 import { find } from "../actions";
 import deposit from "./deposit";
 import withdraw from "./withdraw";
-import { findByKey } from "../../master.module/resource/actions";
+import { findByKey as FindResourceByKey } from "../../master.module/resource/actions";
 
 const resolvers = {
   Query: {
@@ -12,7 +12,7 @@ const resolvers = {
   },
   Resource: {
     masterResourceData: async (resource) => {
-      return await findByKey(resource.master);
+      return await FindResourceByKey(resource.masterResource);
     },
   },
   Mutation: {

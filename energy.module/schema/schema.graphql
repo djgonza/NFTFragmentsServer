@@ -1,0 +1,10 @@
+# import Energy from 'typeDefs.graphql'
+
+type Query {
+  energy: Energy!
+}
+
+type Mutation {
+  depositEnergy(amount: Int!): Energy!
+  withdrawEnergy(amount: Int!): Energy!
+}

@@ -10,6 +10,8 @@ type MasterMachineRecipe {
   key: ID!
   name: String!
   time: Int!
+  energyInput: Int!
+  energyOutput: Int!
   masterResourcesInput: [MasterRecipeResourceAmount]
   masterResourcesOutput: [MasterRecipeResourceAmount]!
 }

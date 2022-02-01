@@ -6,8 +6,8 @@ type Machine {
   _id: ID!
   masterMachine: ID!
   masterMachineData: MasterMachine!
-  masterRecipe: ID
-  masterRecipeData: MasterMachineRecipe
+  masterMachineRecipe: ID
+  masterMachineRecipeData: MasterMachineRecipe
   landData: Land
   running: Boolean!
   endDate: Float!

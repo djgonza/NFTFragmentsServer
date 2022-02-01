@@ -5,7 +5,7 @@ const resources = [
   //TIER 1
   {
     key: 0,
-    name: "Energy",
+    name: "Organic Material",
     symbol: "E",
     color: "#FFD600"
   },

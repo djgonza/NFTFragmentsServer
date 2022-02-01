@@ -6,26 +6,18 @@ const recipes = [
     key: 0,
     name: "Enegy",
     time: 10000,
-    withdrawResourcesOfLand: false,
+    energyInput: 0,
+    energyOutput: 10,
     masterResourcesInput: [],
-    masterResourcesOutput: [
-      {
-        masterResource: 0,
-        amount: 10,
-      },
-    ],
+    masterResourcesOutput: [],
   },
   {
     key: 1,
     name: "Copper 2",
     time: 10000,
-    withdrawResourcesOfLand: false,
-    masterResourcesInput: [
-      {
-        masterResource: 0,
-        amount: 5,
-      },
-    ],
+    energyInput: 10,
+    energyOutput: 0,
+    masterResourcesInput: [],
     masterResourcesOutput: [
       {
         masterResource: 1,

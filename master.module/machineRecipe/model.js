@@ -27,12 +27,18 @@ const MasterMachineRecipeSchema = new schema({
     require: true,
     default: 0,
   },
+  energyInput: {
+    type: schema.Types.Number,
+    require: true,
+    default: 0,
+  },
+  energyOutput: {
+    type: schema.Types.Number,
+    require: true,
+    default: 0,
+  },
   masterResourcesInput: [MasterMachineRecipeResourceAmount],
   masterResourcesOutput: [MasterMachineRecipeResourceAmount],
-  withdrawResourcesOfLand: {
-    type: schema.Types.Boolean,
-    default: false,
-  },
 });
 
 const MasterMachineRecipeModel = mongoose.model(

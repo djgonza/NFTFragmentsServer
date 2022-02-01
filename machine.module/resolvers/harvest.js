@@ -1,6 +1,7 @@
 import { asyncWrapper } from "../../utils/asyncWrapper";
 
 import { findById as FindMachineById } from "../actions";
+import { deposit as DepositEnergy } from "../../energy.module/actions";
 import { findOne as FindOneLand } from "../../land.module/actions";
 import { findByKey as FindMasterMachineRecipeByKey } from "../../master.module/machineRecipe/actions";
 import { deposit as DepositResource } from "../../resource.module/actions";
@@ -11,12 +12,12 @@ const Harvest = async (obj, args, context, info) => {
 
   const machine = await FindMachineById(_id);
   if (!machine) throw new Error("Not machine found");
-  if (machine.masterRecipe === null) throw new Error("Not recipe set");
+  if (machine.masterMachineRecipe === null) throw new Error("Not recipe set");
   if (!machine.running) throw new Error("Machine not running");
   if (!machine.endDate > Date.now()) throw new Error("Machine not harvest");
 
   const masterMachineRecipe = await FindMasterMachineRecipeByKey(
-    machine.masterRecipe
+    machine.masterMachineRecipe
   );
   if (!masterMachineRecipe) throw new Error("Recipe not found");
 
@@ -28,29 +29,37 @@ const Harvest = async (obj, args, context, info) => {
 
   await machine.save();
 
+  if (masterMachineRecipe.energyOutput > 0) {
+    await DepositEnergy(user.id, masterMachineRecipe.energyOutput);
+  }
+
   for (let i = 0; i < masterMachineRecipe.masterResourcesOutput.length; i++) {
-    const masterMachinerecipeResourceOutput =
+    const masterMachineRecipeResourceOutput =
       masterMachineRecipe.masterResourcesOutput[i];
 
-    if (masterMachineRecipe.withdrawResourcesOfLand) {
-      land.resources = land.resources.map((landResource) => {
-        if (
-          landResource.masterResource !==
-          masterMachinerecipeResourceOutput.masterResource
-        )
-          return landResource;
-        landResource.amount -= masterMachinerecipeResourceOutput.amount;
-        if (landResource.amount < 0) landResource.amount = 0;
-        return landResource;
-      });
+    for (let y = 0; y < land.landResources.length; y++) {
+      const landResource = land.landResources[y];
+      if (
+        landResource.masterResource ===
+        masterMachineRecipeResourceOutput.masterResource
+      ) {
+        var resourceAmountExtracted = masterMachineRecipeResourceOutput.amount;
+        if (landResource.amount < masterMachineRecipeResourceOutput.amount) {
+          resourceAmountExtracted = landResource.amount;
+          landResource.amount = 0;
+        } else {
+          landResource.amount -= masterMachineRecipeResourceOutput.amount;
+        }
+        await DepositResource(
+          user.id,
+          masterMachineRecipeResourceOutput.masterResource,
+          resourceAmountExtracted
+        );
+      }
     }
-
-    await DepositResource(
-      user.id,
-      masterMachinerecipeResourceOutput.masterResource,
-      masterMachinerecipeResourceOutput.amount
-    );
   }
+
+  await land.save();
 
   return machine;
 };

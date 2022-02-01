@@ -10,6 +10,10 @@ const create = async (user, masterMachine) => {
   return newMachine;
 };
 
+const find = async (params) => {
+  return await MachineModel.find(params);
+};
+
 const findOne = async (params) => {
   return await MachineModel.findOne(params);
 };
@@ -18,4 +22,4 @@ const findById = async (_id) => {
   return await MachineModel.findById(_id);
 };
 
-export { findById, findOne, create };
+export { find, findById, findOne, create };

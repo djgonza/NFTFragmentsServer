@@ -16,7 +16,7 @@ const PlaceMachine = async (obj, args, context, info) => {
 
   await land.save();
 
-  return land;
+  return machine;
 
 };
 
