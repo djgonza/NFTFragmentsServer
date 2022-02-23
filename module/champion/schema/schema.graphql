@@ -1,0 +1,16 @@
+# import MasterChampion from 'typeDefs.graphql'
+# import Champion from 'typeDefs.graphql'
+
+type Query {
+  masterChampions: [MasterChampion]!
+  champions: [Champion]!
+}
+
+type Mutation {
+  masterCreateChampion(key: ID!, name: String!): Boolean!
+
+  createChampion(netID: ID!, masterKey: ID!): Boolean!
+  deleteChampion(_id: ID!, netID: ID!): Boolean!
+
+  transferChampion(_id: ID!, netID: ID!, newOwner: ID!): Boolean!
+}

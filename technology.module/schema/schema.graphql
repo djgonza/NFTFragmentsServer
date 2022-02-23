@@ -1,9 +1,0 @@
-# import Technology from 'typeDefs.graphql'
-
-type Query {
-    technologies: [Technology]!
-}
-
-type Mutation {
-  unlockTechnology(masterTechnologyKey: ID!): Technology!
-}

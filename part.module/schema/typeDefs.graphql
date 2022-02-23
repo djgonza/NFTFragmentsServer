@@ -1,8 +1,0 @@
-# import MasterPart from '../../master.module/part/type.graphql'
-
-type Part {
-    _id: ID!
-    masterPart: ID!
-    masterPartData: MasterPart!
-    amount: Int!
-}

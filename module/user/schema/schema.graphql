@@ -1,0 +1,9 @@
+# import User from 'typeDefs.graphql'
+
+type Query {
+  user(address: ID!): User!
+}
+
+type Mutation {
+  createUser(address: ID!): Boolean!
+}

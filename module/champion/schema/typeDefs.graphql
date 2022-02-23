@@ -1,0 +1,13 @@
+
+
+type MasterChampion {
+    key: ID!
+    name: String!
+}
+
+type Champion {
+    _id: ID!
+    netID: ID!
+    owner: ID!
+    master: MasterChampion!
+}

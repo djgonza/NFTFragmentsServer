@@ -1,3 +1,0 @@
-type Energy {
-  amount: Int!
-}

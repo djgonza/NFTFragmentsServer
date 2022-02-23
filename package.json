@@ -1,8 +1,8 @@
 {
-  "name": "factory-server",
+  "name": "nft-fragments-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production && npm run server:prod",
     "server:prod": "node dist/app.js",
